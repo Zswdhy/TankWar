@@ -9,6 +9,9 @@ public class TankWarClient extends Frame {
 
     int x = 50, y = 50;
 
+    Image offScreenImage = null; // 背后虚拟的图片
+
+
     // 窗口重画的时候，自动调用paint()方法
     public void paint(Graphics g) {
         Color c = g.getColor();
@@ -16,6 +19,20 @@ public class TankWarClient extends Frame {
         g.fillOval(x, y, 30, 30); //设置坦克的初始位置
         g.setColor(c); // 恢复画笔颜色
         x += 3;
+    }
+
+    public void update(Graphics g) {
+        // repaint 先调用 update() 后调用 paint()
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(800, 600);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor(); // 获取原本的颜色
+        gOffScreen.setColor(Color.GREEN);
+        gOffScreen.fillRect(0, 0, 800, 600);
+        gOffScreen.setColor(c); // 恢复之前的颜色
+        paint(gOffScreen);
+        g.drawImage(offScreenImage, 0, 0, null); // 一次性将内容画在窗体内，解决因为刷新率照成的闪烁现象
     }
 
     public void launchFrame() {
@@ -46,7 +63,7 @@ public class TankWarClient extends Frame {
             while (true) {
                 repaint(); // 调用外部类的重画方法，因为未重写repaint，即调用父类Frame的repaint()方法
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(20);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
