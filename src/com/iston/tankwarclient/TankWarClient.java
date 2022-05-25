@@ -1,6 +1,8 @@
 package com.iston.tankwarclient;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -8,6 +10,7 @@ import java.awt.event.WindowEvent;
 public class TankWarClient extends Frame {
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HIGH = 600;
+    public static final int TANK_SPEED = 5;
     int x = 50, y = 50;
 
     Image offScreenImage = null; // 背后虚拟的图片
@@ -19,7 +22,6 @@ public class TankWarClient extends Frame {
         g.setColor(Color.RED); //设置画笔颜色
         g.fillOval(x, y, 30, 30); //设置坦克的初始位置
         g.setColor(c); // 恢复画笔颜色
-        x += 3;
     }
 
     public void update(Graphics g) {
@@ -47,6 +49,7 @@ public class TankWarClient extends Frame {
             }
         }); //匿名类，重写内部方法
         this.setResizable(false); // 禁止修改窗体的大小
+        this.addKeyListener(new keyMonitor()); // 键盘监听事件
         setVisible(true);// 显示窗体
         new Thread(new paintThread()).start();
     }
@@ -71,4 +74,28 @@ public class TankWarClient extends Frame {
             }
         }
     }
+
+    private class keyMonitor extends KeyAdapter {
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            System.out.println("key down");
+            int key = e.getKeyCode();
+            switch (key) {
+                case KeyEvent.VK_LEFT:
+                    x -= TANK_SPEED;
+                    break;
+                case KeyEvent.VK_UP:
+                    y -= TANK_SPEED;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    x += TANK_SPEED;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    y += TANK_SPEED;
+                    break;
+            }
+        }
+    }
+
 }
