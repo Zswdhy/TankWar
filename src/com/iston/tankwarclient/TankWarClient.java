@@ -6,7 +6,8 @@ import java.awt.event.WindowEvent;
 
 
 public class TankWarClient extends Frame {
-
+    public static final int GAME_WIDTH = 800;
+    public static final int GAME_HIGH = 600;
     int x = 50, y = 50;
 
     Image offScreenImage = null; // 背后虚拟的图片
@@ -24,12 +25,12 @@ public class TankWarClient extends Frame {
     public void update(Graphics g) {
         // repaint 先调用 update() 后调用 paint()
         if (offScreenImage == null) {
-            offScreenImage = this.createImage(800, 600);
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HIGH);
         }
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color c = gOffScreen.getColor(); // 获取原本的颜色
         gOffScreen.setColor(Color.GREEN);
-        gOffScreen.fillRect(0, 0, 800, 600);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HIGH);
         gOffScreen.setColor(c); // 恢复之前的颜色
         paint(gOffScreen);
         g.drawImage(offScreenImage, 0, 0, null); // 一次性将内容画在窗体内，解决因为刷新率照成的闪烁现象
@@ -37,7 +38,7 @@ public class TankWarClient extends Frame {
 
     public void launchFrame() {
         this.setLocation(300, 80);  // 屏幕左上角的左边位置
-        this.setSize(800, 600); // 设置窗体的大小
+        this.setSize(GAME_WIDTH, GAME_HIGH); // 设置窗体的大小
         this.setTitle("坦克大战1.0");
         this.setBackground(Color.GREEN); // 设置窗体背景色
         this.addWindowListener(new WindowAdapter() {
