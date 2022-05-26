@@ -70,7 +70,14 @@ public class TankWarClient extends Frame {
     private class keyMonitor extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
+            // 键盘按下触发的事件
             myTank.keyPressed(e);
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            // 键盘弹起触发的事件，恢复现场
+            myTank.keyReleased(e);
         }
     }
 
