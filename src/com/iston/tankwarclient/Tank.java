@@ -24,18 +24,10 @@ public class Tank {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
-            case KeyEvent.VK_LEFT:
-                x -= TANK_SPEED;
-                break;
-            case KeyEvent.VK_UP:
-                y -= TANK_SPEED;
-                break;
-            case KeyEvent.VK_RIGHT:
-                x += TANK_SPEED;
-                break;
-            case KeyEvent.VK_DOWN:
-                y += TANK_SPEED;
-                break;
+            case KeyEvent.VK_LEFT -> x -= TANK_SPEED;
+            case KeyEvent.VK_UP -> y -= TANK_SPEED;
+            case KeyEvent.VK_RIGHT -> x += TANK_SPEED;
+            case KeyEvent.VK_DOWN -> y += TANK_SPEED;
         }
     }
 }
