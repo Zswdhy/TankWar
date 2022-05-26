@@ -1,6 +1,5 @@
 package com.iston.tankwarclient;
 
-import javax.sql.rowset.BaseRowSet;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -71,7 +70,6 @@ public class Tank {
         int key = e.getKeyCode();
         switch (key) {
             case KeyEvent.VK_CONTROL -> {
-                System.out.println("按下了ctrl键");
                 tc.myMissile = fire();
             }
             case KeyEvent.VK_LEFT -> left = true;

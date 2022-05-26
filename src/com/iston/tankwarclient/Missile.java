@@ -50,8 +50,4 @@ public class Missile {
         }
     }
 
-
-    public static void main(String[] args) {
-        System.out.println("Missile.main");
-    }
 }
