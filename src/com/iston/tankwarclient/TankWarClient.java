@@ -10,18 +10,13 @@ import java.awt.event.WindowEvent;
 public class TankWarClient extends Frame {
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HIGH = 600;
-    public static final int TANK_SPEED = 5;
-    int x = 50, y = 50;
 
+    Tank myTank = new Tank(50, 50);
     Image offScreenImage = null; // 背后虚拟的图片
-
 
     // 窗口重画的时候，自动调用paint()方法
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.RED); //设置画笔颜色
-        g.fillOval(x, y, 30, 30); //设置坦克的初始位置
-        g.setColor(c); // 恢复画笔颜色
+        myTank.draw(g);
     }
 
     public void update(Graphics g) {
@@ -55,14 +50,11 @@ public class TankWarClient extends Frame {
     }
 
     public static void main(String[] args) {
-        System.out.println("test");
         TankWarClient tc = new TankWarClient();
         tc.launchFrame();
     }
 
-
     private class paintThread implements Runnable {
-
         public void run() {
             while (true) {
                 repaint(); // 调用外部类的重画方法，因为未重写repaint，即调用父类Frame的repaint()方法
@@ -76,25 +68,9 @@ public class TankWarClient extends Frame {
     }
 
     private class keyMonitor extends KeyAdapter {
-
         @Override
         public void keyPressed(KeyEvent e) {
-            System.out.println("key down");
-            int key = e.getKeyCode();
-            switch (key) {
-                case KeyEvent.VK_LEFT:
-                    x -= TANK_SPEED;
-                    break;
-                case KeyEvent.VK_UP:
-                    y -= TANK_SPEED;
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    x += TANK_SPEED;
-                    break;
-                case KeyEvent.VK_DOWN:
-                    y += TANK_SPEED;
-                    break;
-            }
+            myTank.keyPressed(e);
         }
     }
 
