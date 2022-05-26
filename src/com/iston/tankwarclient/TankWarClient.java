@@ -11,14 +11,16 @@ public class TankWarClient extends Frame {
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HIGH = 600;
 
-    Tank myTank = new Tank(50, 50);
-    Missile myMissile = new Missile(56, 56, Tank.Direction.D);
+    Tank myTank = new Tank(50, 50, this);
+    Missile myMissile = null;
     Image offScreenImage = null; // 背后虚拟的图片
 
     // 窗口重画的时候，自动调用paint()方法
     public void paint(Graphics g) {
         myTank.draw(g);
-        myMissile.draw(g);
+        if (myMissile != null) {
+            myMissile.draw(g);
+        }
     }
 
     public void update(Graphics g) {

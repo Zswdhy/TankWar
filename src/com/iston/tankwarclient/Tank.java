@@ -1,5 +1,6 @@
 package com.iston.tankwarclient;
 
+import javax.sql.rowset.BaseRowSet;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -8,6 +9,11 @@ public class Tank {
     public static final int TANK_X_SPEED = 5;
     public static final int TANK_Y_SPEED = 5;
     private int x, y;//位置坐标
+
+    public static final int TANK_WIDTH = 30;
+    public static final int TANK_HIGH = 30;
+
+    TankWarClient tc;
 
     private boolean left = false, up = false, right = false, down = false;
 
@@ -21,6 +27,11 @@ public class Tank {
     public Tank(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Tank(int x, int y, TankWarClient tc) {
+        this(x, y); // 直接调用另外一个同名的构造函数
+        this.tc = tc;
     }
 
     void move() {
@@ -51,7 +62,7 @@ public class Tank {
     public void draw(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.RED); //设置画笔颜色
-        g.fillOval(x, y, 30, 30); //设置坦克的初始位置
+        g.fillOval(x, y, TANK_WIDTH, TANK_HIGH); //设置坦克的初始位置
         g.setColor(c); // 恢复画笔颜色
         move();
     }
@@ -59,6 +70,10 @@ public class Tank {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
+            case KeyEvent.VK_CONTROL -> {
+                System.out.println("按下了ctrl键");
+                tc.myMissile = fire();
+            }
             case KeyEvent.VK_LEFT -> left = true;
             case KeyEvent.VK_UP -> up = true;
             case KeyEvent.VK_RIGHT -> right = true;
@@ -98,5 +113,12 @@ public class Tank {
         } else if (!left && !up && !right && !down) {
             dir = Direction.STOP;
         }
+    }
+
+    public Missile fire() {
+        int x = this.x + Tank.TANK_WIDTH / 2 - Missile.MISSILE_WIDTH / 2;
+        int y = this.y + Tank.TANK_HIGH / 2 - Missile.MISSILE_HIGH / 2;
+        Missile missile = new Missile(x, y, dir);
+        return missile;
     }
 }
