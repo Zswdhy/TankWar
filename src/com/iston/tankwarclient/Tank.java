@@ -70,30 +70,14 @@ public class Tank {
         g.setColor(c); // 恢复画笔颜色
         // 根据坦克的方向画炮筒
         switch (gunDir) {
-            case L -> {
-                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x, y + TANK_HIGH / 2);
-            }
-            case LU -> {
-                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x, y);
-            }
-            case U -> {
-                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH / 2, y);
-            }
-            case RU -> {
-                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH, y);
-            }
-            case R -> {
-                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH, y + TANK_HIGH / 2);
-            }
-            case RD -> {
-                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH, y + TANK_HIGH);
-            }
-            case D -> {
-                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH / 2, y + TANK_HIGH);
-            }
-            case LD -> {
-                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x, y + TANK_HIGH);
-            }
+            case L -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x, y + TANK_HIGH / 2);
+            case LU -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x, y);
+            case U -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH / 2, y);
+            case RU -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH, y);
+            case R -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH, y + TANK_HIGH / 2);
+            case RD -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH, y + TANK_HIGH);
+            case D -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH / 2, y + TANK_HIGH);
+            case LD -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x, y + TANK_HIGH);
         }
 
         move();
@@ -102,9 +86,7 @@ public class Tank {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
-            case KeyEvent.VK_CONTROL -> {
-                tc.myMissile = fire();
-            }
+            case KeyEvent.VK_CONTROL -> tc.myMissile = fire();
             case KeyEvent.VK_LEFT -> left = true;
             case KeyEvent.VK_UP -> up = true;
             case KeyEvent.VK_RIGHT -> right = true;
@@ -135,13 +117,13 @@ public class Tank {
             dir = Direction.RU;
         } else if (!left && !up && right && !down) {
             dir = Direction.R;
-        } else if (!left && !up && right && down) {
+        } else if (!left && !up && right) {
             dir = Direction.RD;
-        } else if (!left && !up && !right && down) {
+        } else if (!left && !up && down) {
             dir = Direction.D;
-        } else if (left && !up && !right && down) {
+        } else if (left && !up && !right) {
             dir = Direction.LD;
-        } else if (!left && !up && !right && !down) {
+        } else if (!left && !up) {
             dir = Direction.STOP;
         }
     }
@@ -149,7 +131,6 @@ public class Tank {
     public Missile fire() {
         int x = this.x + Tank.TANK_WIDTH / 2 - Missile.MISSILE_WIDTH / 2;
         int y = this.y + Tank.TANK_HIGH / 2 - Missile.MISSILE_HIGH / 2;
-        Missile missile = new Missile(x, y, gunDir); // 根据炮筒的方向fire
-        return missile;
+        return new Missile(x, y, gunDir); // 根据炮筒的方向fire
     }
 }

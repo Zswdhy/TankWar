@@ -58,6 +58,7 @@ public class TankWarClient extends Frame {
         tc.launchFrame();
     }
 
+    @SuppressWarnings("InfiniteLoopStatement") // 解决run方法的while(true)警告
     private class paintThread implements Runnable {
         public void run() {
             while (true) {
