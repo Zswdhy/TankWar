@@ -86,7 +86,6 @@ public class Tank {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
-            case KeyEvent.VK_CONTROL -> tc.myMissile = fire();
             case KeyEvent.VK_LEFT -> left = true;
             case KeyEvent.VK_UP -> up = true;
             case KeyEvent.VK_RIGHT -> right = true;
@@ -98,6 +97,7 @@ public class Tank {
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
+            case KeyEvent.VK_CONTROL -> fire(); // 键盘弹起ctrl键发送炮弹
             case KeyEvent.VK_LEFT -> left = false;
             case KeyEvent.VK_UP -> up = false;
             case KeyEvent.VK_RIGHT -> right = false;
@@ -131,6 +131,8 @@ public class Tank {
     public Missile fire() {
         int x = this.x + Tank.TANK_WIDTH / 2 - Missile.MISSILE_WIDTH / 2;
         int y = this.y + Tank.TANK_HIGH / 2 - Missile.MISSILE_HIGH / 2;
-        return new Missile(x, y, gunDir); // 根据炮筒的方向fire
+        Missile m = new Missile(x, y, gunDir);// 根据炮筒的方向fire
+        tc.missiles.add(m); // 将每次初始化的炮弹加入ArrayList<>
+        return m;
     }
 }

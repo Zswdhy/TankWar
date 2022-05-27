@@ -5,21 +5,23 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankWarClient extends Frame {
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HIGH = 600;
 
     Tank myTank = new Tank(50, 50, this);
-    Missile myMissile = null;
     Image offScreenImage = null; // 背后虚拟的图片
+    List<Missile> missiles = new ArrayList<>(); // 定义炮弹容器
 
     // 窗口重画的时候，自动调用paint()方法
     public void paint(Graphics g) {
+        g.drawString("MissileCount:" + "【" + missiles.size() + "】", 10, 50);
         myTank.draw(g);
-        if (myMissile != null) {
-            myMissile.draw(g);
+        for (Missile missile : missiles) {
+            missile.draw(g);
         }
     }
 
