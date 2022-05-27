@@ -3,6 +3,7 @@ package com.iston.tankwarclient;
 import java.awt.*;
 
 public class Missile {
+    private TankWarClient tc;
     int x, y;
     Tank.Direction dir;
     public static final int MISSILE_X_SPEED = 10;
@@ -21,6 +22,11 @@ public class Missile {
         this.x = x;
         this.y = y;
         this.dir = dir;
+    }
+
+    public Missile(int x, int y, Tank.Direction dir, TankWarClient tc) {
+        this(x, y, dir);
+        this.tc = tc;
     }
 
     public void draw(Graphics g) {
@@ -58,6 +64,7 @@ public class Missile {
         // 炮弹越界，修改炮弹状态
         if (x < 0 || y < 0 || x > TankWarClient.GAME_WIDTH || y > TankWarClient.GAME_HIGH) {
             live = false;
+            tc.missiles.remove(this); // 无效炮弹，直接移除ArrayList<>
         }
     }
 

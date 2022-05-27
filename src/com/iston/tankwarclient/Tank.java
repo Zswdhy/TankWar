@@ -128,11 +128,10 @@ public class Tank {
         }
     }
 
-    public Missile fire() {
+    public void fire() {
         int x = this.x + Tank.TANK_WIDTH / 2 - Missile.MISSILE_WIDTH / 2;
         int y = this.y + Tank.TANK_HIGH / 2 - Missile.MISSILE_HIGH / 2;
-        Missile m = new Missile(x, y, gunDir);// 根据炮筒的方向fire
+        Missile m = new Missile(x, y, gunDir, this.tc);// 根据炮筒的方向fire
         tc.missiles.add(m); // 将每次初始化的炮弹加入ArrayList<>
-        return m;
     }
 }
