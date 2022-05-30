@@ -21,12 +21,6 @@ public class TankWarClient extends Frame {
         g.drawString("MissileCount:" + "【" + missiles.size() + "】", 10, 50);
         myTank.draw(g);
         for (Missile missile : missiles) {
-//            if (!missile.isLive()) {
-//                // 判断炮弹状态，移除炮弹
-//                missiles.remove(missile);
-//            } else {
-//                missile.draw(g);
-//            }
             missile.draw(g);
         }
     }
