@@ -61,6 +61,19 @@ public class Tank {
         if (this.dir != Direction.STOP) {
             this.gunDir = this.dir;
         }
+
+        if (x < 0) {
+            x = 0;
+        }
+        if (y < TANK_HIGH) {
+            y = TANK_HIGH;
+        }
+        if (x + TANK_WIDTH > TankWarClient.GAME_WIDTH) {
+            x = TankWarClient.GAME_WIDTH - TANK_WIDTH;
+        }
+        if (y + TANK_HIGH > TankWarClient.GAME_HIGH) {
+            y = TankWarClient.GAME_HIGH - TANK_HIGH;
+        }
     }
 
     public void draw(Graphics g) {
