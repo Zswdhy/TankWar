@@ -9,6 +9,8 @@ public class Tank {
     public static final int TANK_Y_SPEED = 5;
     private int x, y;//位置坐标
 
+    private boolean good;
+
     public static final int TANK_WIDTH = 30;
     public static final int TANK_HIGH = 30;
 
@@ -24,13 +26,14 @@ public class Tank {
     private Direction gunDir = Direction.D; //炮筒方向
 
     // 同名的构造方法
-    public Tank(int x, int y) {
+    public Tank(int x, int y, boolean good) {
         this.x = x;
         this.y = y;
+        this.good = good;
     }
 
-    public Tank(int x, int y, TankWarClient tc) {
-        this(x, y); // 直接调用另外一个同名的构造函数
+    public Tank(int x, int y, boolean good, TankWarClient tc) {
+        this(x, y, good); // 直接调用另外一个同名的构造函数
         this.tc = tc;
     }
 
@@ -78,7 +81,12 @@ public class Tank {
 
     public void draw(Graphics g) {
         Color c = g.getColor();
-        g.setColor(Color.RED); //设置画笔颜色
+        if (good) {
+            g.setColor(Color.RED); //设置 my tank 画笔颜色
+        } else {
+            g.setColor(Color.BLUE); //设置 badTank 画笔颜色
+        }
+
         g.fillOval(x, y, TANK_WIDTH, TANK_HIGH); //设置坦克的初始位置
         g.setColor(c); // 恢复画笔颜色
         // 根据坦克的方向画炮筒

@@ -12,14 +12,16 @@ public class TankWarClient extends Frame {
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HIGH = 600;
 
-    Tank myTank = new Tank(50, 50, this);
+    Tank myTank = new Tank(50, 50, true, this); // my tank
+    Tank badTank = new Tank(100, 100, false, this); // enemy tank
     Image offScreenImage = null; // 背后虚拟的图片
     List<Missile> missiles = new ArrayList<>(); // 定义炮弹容器
 
     // 窗口重画的时候，自动调用paint()方法
     public void paint(Graphics g) {
         g.drawString("MissileCount:" + "【" + missiles.size() + "】", 10, 50);
-        myTank.draw(g);
+        myTank.draw(g); // 自己坦克
+        badTank.draw(g); // 敌人坦克
         for (Missile missile : missiles) {
             missile.draw(g);
         }
