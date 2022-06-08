@@ -23,6 +23,7 @@ public class TankWarClient extends Frame {
         myTank.draw(g); // 自己坦克
         badTank.draw(g); // 敌人坦克
         for (Missile missile : missiles) {
+            missile.hitTank(badTank); // 碰撞检测
             missile.draw(g);
         }
     }

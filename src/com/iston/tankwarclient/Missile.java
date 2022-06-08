@@ -30,6 +30,12 @@ public class Missile {
     }
 
     public void draw(Graphics g) {
+        // 子弹重画之前，先判断是否活着
+        if (!live) {
+            tc.missiles.remove(this);
+            return;
+        }
+
         Color c = g.getColor();
         g.setColor(Color.BLACK);
         g.fillOval(x, y, MISSILE_WIDTH, MISSILE_HIGH);
@@ -66,6 +72,20 @@ public class Missile {
             live = false;
             tc.missiles.remove(this); // 无效炮弹，直接移除ArrayList<>
         }
+    }
+
+    public Rectangle getRectangle() {
+        return new Rectangle(x, y, MISSILE_WIDTH, MISSILE_HIGH);
+    }
+
+    public boolean hitTank(Tank t) {
+        // 碰撞检测
+        if (this.getRectangle().intersects(t.getRectangle()) && t.isLive()) {
+            t.setLive(false);
+            this.live = false;
+            return true;
+        }
+        return false;
     }
 
 }

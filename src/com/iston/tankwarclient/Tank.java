@@ -14,6 +14,17 @@ public class Tank {
     public static final int TANK_WIDTH = 30;
     public static final int TANK_HIGH = 30;
 
+    public void setLive(boolean live) {
+        // 因为 isLive 为私有变量，需要设置 setLive 方式
+        isLive = live;
+    }
+
+    public boolean isLive() {
+        return isLive;
+    }
+
+    private boolean isLive = true;
+
     TankWarClient tc;
 
     private boolean left = false, up = false, right = false, down = false;
@@ -80,6 +91,8 @@ public class Tank {
     }
 
     public void draw(Graphics g) {
+        if (!isLive) return; // 如果 tank 死掉，不重画
+
         Color c = g.getColor();
         if (good) {
             g.setColor(Color.RED); //设置 my tank 画笔颜色
@@ -147,6 +160,10 @@ public class Tank {
         } else if (!left && !up) {
             dir = Direction.STOP;
         }
+    }
+
+    public Rectangle getRectangle() {
+        return new Rectangle(x, y, TANK_WIDTH, TANK_HIGH);
     }
 
     public void fire() {
