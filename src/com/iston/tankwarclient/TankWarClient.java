@@ -14,12 +14,14 @@ public class TankWarClient extends Frame {
 
     Tank myTank = new Tank(50, 50, true, this); // my tank
     Tank badTank = new Tank(100, 100, false, this); // enemy tank
+    Explode explode = new Explode(190, 190, this);
     Image offScreenImage = null; // 背后虚拟的图片
     List<Missile> missiles = new ArrayList<>(); // 定义炮弹容器
 
     // 窗口重画的时候，自动调用paint()方法
     public void paint(Graphics g) {
         g.drawString("MissileCount:" + "【" + missiles.size() + "】", 10, 50);
+        explode.draw(g);
         myTank.draw(g); // 自己坦克
         badTank.draw(g); // 敌人坦克
         for (Missile missile : missiles) {
@@ -69,7 +71,7 @@ public class TankWarClient extends Frame {
             while (true) {
                 repaint(); // 调用外部类的重画方法，因为未重写repaint，即调用父类Frame的repaint()方法
                 try {
-                    Thread.sleep(20);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
