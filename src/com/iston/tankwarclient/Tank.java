@@ -25,6 +25,7 @@ public class Tank {
     }
 
     private static Random random = new Random();
+    private int step = random.nextInt(12) + 3;
 
     private boolean isLive = true;
 
@@ -95,8 +96,13 @@ public class Tank {
 
         if (!good) {
             Direction[] dirs = Direction.values();
-            int random_num = random.nextInt(dirs.length);
-            dir = dirs[random_num];
+
+            if (step == 0) {
+                step = random.nextInt(12) + 3;
+                int random_num = random.nextInt(dirs.length);
+                dir = dirs[random_num];
+            }
+            step--;
         }
     }
 
