@@ -12,7 +12,7 @@ public class TankWarClient extends Frame {
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HIGH = 600;
 
-    Tank myTank = new Tank(50, 50, true, this); // my tank
+    Tank myTank = new Tank(50, 50, true, Tank.Direction.STOP, this); // my tank
     Image offScreenImage = null; // 背后虚拟的图片
     List<Missile> missiles = new ArrayList<>(); // 定义炮弹容器
     List<Explode> explodes = new ArrayList<>(); // 定义爆炸效果容器
@@ -57,7 +57,7 @@ public class TankWarClient extends Frame {
     public void launchFrame() {
         // 初始化敌人坦克
         for (int i = 0; i < 10; i++) {
-            tanks.add(new Tank(50 + 40 * (i + 1), 50, false, this));
+            tanks.add(new Tank(50 + 40 * (i + 1), 50, false, Tank.Direction.D, this));
         }
 
         this.setLocation(300, 80);  // 屏幕左上角的左边位置
@@ -86,7 +86,7 @@ public class TankWarClient extends Frame {
             while (true) {
                 repaint(); // 调用外部类的重画方法，因为未重写repaint，即调用父类Frame的repaint()方法
                 try {
-                    Thread.sleep(20);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

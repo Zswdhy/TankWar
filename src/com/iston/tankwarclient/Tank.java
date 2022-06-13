@@ -2,6 +2,7 @@ package com.iston.tankwarclient;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 public class Tank {
 
@@ -23,6 +24,8 @@ public class Tank {
         return isLive;
     }
 
+    private static Random random = new Random();
+
     private boolean isLive = true;
 
     TankWarClient tc;
@@ -43,8 +46,9 @@ public class Tank {
         this.good = good;
     }
 
-    public Tank(int x, int y, boolean good, TankWarClient tc) {
+    public Tank(int x, int y, boolean good, Direction dir, TankWarClient tc) {
         this(x, y, good); // 直接调用另外一个同名的构造函数
+        this.dir = dir;
         this.tc = tc;
     }
 
@@ -87,6 +91,12 @@ public class Tank {
         }
         if (y + TANK_HIGH > TankWarClient.GAME_HIGH) {
             y = TankWarClient.GAME_HIGH - TANK_HIGH;
+        }
+
+        if (!good) {
+            Direction[] dirs = Direction.values();
+            int random_num = random.nextInt(dirs.length);
+            dir = dirs[random_num];
         }
     }
 
