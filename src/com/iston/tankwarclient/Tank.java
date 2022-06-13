@@ -91,7 +91,12 @@ public class Tank {
     }
 
     public void draw(Graphics g) {
-        if (!isLive) return; // 如果 tank 死掉，不重画
+        if (!isLive) {
+            if (!good) {
+                tc.tanks.remove(this);
+            }
+            return; // 如果 tank 死掉，不重画
+        }
 
         Color c = g.getColor();
         if (good) {
