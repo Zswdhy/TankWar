@@ -13,25 +13,28 @@ public class TankWarClient extends Frame {
     public static final int GAME_HIGH = 600;
 
     Tank myTank = new Tank(50, 50, true, this); // my tank
-    Tank badTank = new Tank(100, 100, false, this); // enemy tank
-    Explode explode = new Explode(190, 190, this);
     Image offScreenImage = null; // 背后虚拟的图片
     List<Missile> missiles = new ArrayList<>(); // 定义炮弹容器
     List<Explode> explodes = new ArrayList<>(); // 定义爆炸效果容器
+    List<Tank> tanks = new ArrayList<>(); // 定义爆炸效果容器
 
     // 窗口重画的时候，自动调用paint()方法
     public void paint(Graphics g) {
         g.drawString("MissileCount:" + "【" + missiles.size() + "】", 10, 50);
         g.drawString("ExplodeCount:" + "【" + explodes.size() + "】", 10, 70);
         myTank.draw(g); // 自己坦克
-        badTank.draw(g); // 敌人坦克
+
         for (Missile missile : missiles) {
-            missile.hitTank(badTank); // 碰撞检测
+            missile.hitTanks(tanks);
             missile.draw(g);
         }
 
         for (Explode explode : explodes) {
             explode.draw(g);
+        }
+
+        for (Tank tank : tanks) {
+            tank.draw(g);
         }
 
     }
@@ -51,6 +54,11 @@ public class TankWarClient extends Frame {
     }
 
     public void launchFrame() {
+        // 初始化敌人坦克
+        for (int i = 0; i < 10; i++) {
+            tanks.add(new Tank(50 + 40 * (i + 1), 50, false, this));
+        }
+
         this.setLocation(300, 80);  // 屏幕左上角的左边位置
         this.setSize(GAME_WIDTH, GAME_HIGH); // 设置窗体的大小
         this.setTitle("坦克大战1.0");

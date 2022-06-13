@@ -1,6 +1,7 @@
 package com.iston.tankwarclient;
 
 import java.awt.*;
+import java.util.List;
 
 public class Missile {
     private TankWarClient tc;
@@ -88,6 +89,17 @@ public class Missile {
             return true;
         }
         return false;
+    }
+
+
+    public boolean hitTanks(List<Tank> tanks) {
+        // 循环判断碰撞检测
+        for (int i = 0; i < tanks.size(); i++) {
+            if (hitTank(tanks.get(i))) {
+                return true;
+            }
+        }
+        return true;
     }
 
 }
