@@ -27,6 +27,7 @@ public class TankWarClient extends Frame {
 
         for (Missile missile : missiles) {
             missile.hitTanks(tanks);
+            missile.hitTank(myTank);
             missile.draw(g);
         }
 

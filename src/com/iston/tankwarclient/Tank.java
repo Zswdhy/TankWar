@@ -12,6 +12,10 @@ public class Tank {
 
     private boolean good;
 
+    public boolean isGood() {
+        return good;
+    }
+
     public static final int TANK_WIDTH = 30;
     public static final int TANK_HIGH = 30;
 
@@ -103,6 +107,9 @@ public class Tank {
                 dir = dirs[random_num];
             }
             step--;
+            if (random.nextInt(40) > 30) {
+                this.fire();
+            }
         }
     }
 
@@ -188,9 +195,13 @@ public class Tank {
     }
 
     public void fire() {
+
+        if (!isLive()){
+            return;
+        }
         int x = this.x + Tank.TANK_WIDTH / 2 - Missile.MISSILE_WIDTH / 2;
         int y = this.y + Tank.TANK_HIGH / 2 - Missile.MISSILE_HIGH / 2;
-        Missile m = new Missile(x, y, gunDir, this.tc);// 根据炮筒的方向fire
+        Missile m = new Missile(x, y, good, gunDir, this.tc);// 根据炮筒的方向fire
         tc.missiles.add(m); // 将每次初始化的炮弹加入ArrayList<>
     }
 }

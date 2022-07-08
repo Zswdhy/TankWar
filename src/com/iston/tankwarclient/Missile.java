@@ -7,6 +7,8 @@ public class Missile {
     private TankWarClient tc;
     int x, y;
     Tank.Direction dir;
+
+    private boolean good;
     public static final int MISSILE_X_SPEED = 10;
     public static final int MISSILE_Y_SPEED = 10;
 
@@ -22,11 +24,13 @@ public class Missile {
     public Missile(int x, int y, Tank.Direction dir) {
         this.x = x;
         this.y = y;
+
         this.dir = dir;
     }
 
-    public Missile(int x, int y, Tank.Direction dir, TankWarClient tc) {
+    public Missile(int x, int y, boolean good, Tank.Direction dir, TankWarClient tc) {
         this(x, y, dir);
+        this.good = good;
         this.tc = tc;
     }
 
@@ -81,7 +85,7 @@ public class Missile {
 
     public boolean hitTank(Tank t) {
         // 碰撞检测
-        if (this.getRectangle().intersects(t.getRectangle()) && t.isLive()) {
+        if (this.live && this.getRectangle().intersects(t.getRectangle()) && t.isLive() && this.good != t.isGood()) {
             t.setLive(false);
             this.live = false;
             Explode explode = new Explode(x, y, tc);
