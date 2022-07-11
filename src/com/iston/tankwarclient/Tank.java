@@ -9,6 +9,7 @@ public class Tank {
     public static final int TANK_X_SPEED = 5;
     public static final int TANK_Y_SPEED = 5;
     private int x, y;//位置坐标
+    private int old_x, old_y;//位置坐标
 
     private boolean good;
 
@@ -48,6 +49,8 @@ public class Tank {
     public Tank(int x, int y, boolean good) {
         this.x = x;
         this.y = y;
+        this.old_x = x;
+        this.old_y = y;
         this.good = good;
     }
 
@@ -58,6 +61,10 @@ public class Tank {
     }
 
     void move() {
+
+        this.old_x = x;
+        this.old_y = y;
+
         switch (dir) {
             case L -> x -= TANK_X_SPEED;
             case LU -> {
@@ -196,12 +203,27 @@ public class Tank {
 
     public void fire() {
 
-        if (!isLive()){
+        if (!isLive()) {
             return;
         }
         int x = this.x + Tank.TANK_WIDTH / 2 - Missile.MISSILE_WIDTH / 2;
         int y = this.y + Tank.TANK_HIGH / 2 - Missile.MISSILE_HIGH / 2;
         Missile m = new Missile(x, y, good, gunDir, this.tc);// 根据炮筒的方向fire
         tc.missiles.add(m); // 将每次初始化的炮弹加入ArrayList<>
+    }
+
+    private void stay() {
+        // 修改为上一次移动位置的pos
+        x = old_x;
+        y = old_y;
+    }
+
+    public boolean collidesWithWall(Wall w) {
+        // 子弹和墙的碰撞检测
+        if (this.isLive && this.getRectangle().intersects(w.getRect())) {
+            this.stay();
+            return true;
+        }
+        return false;
     }
 }

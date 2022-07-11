@@ -18,17 +18,24 @@ public class TankWarClient extends Frame {
     List<Explode> explodes = new ArrayList<>(); // 定义爆炸效果容器
     List<Tank> tanks = new ArrayList<>(); // 定义爆炸效果容器
 
+    Wall w1 = new Wall(250, 200, 20, 150, this);
+    Wall w2 = new Wall(400, 100, 300, 20, this);
+
     // 窗口重画的时候，自动调用paint()方法
     public void paint(Graphics g) {
         g.drawString("MissileCount:" + "【" + missiles.size() + "】", 10, 50);
         g.drawString("ExplodeCount:" + "【" + explodes.size() + "】", 10, 70);
         g.drawString("BadTanksCount:" + "【" + tanks.size() + "】", 10, 90);
         myTank.draw(g); // 自己坦克
+        w1.draw(g);
+        w2.draw(g);
 
         for (Missile missile : missiles) {
             missile.hitTanks(tanks);
             missile.hitTank(myTank);
             missile.draw(g);
+            missile.hitWall(w1);
+            missile.hitWall(w2);
         }
 
         for (Explode explode : explodes) {
@@ -37,6 +44,8 @@ public class TankWarClient extends Frame {
 
         for (Tank tank : tanks) {
             tank.draw(g);
+            tank.collidesWithWall(w1);
+            tank.collidesWithWall(w2);
         }
 
     }

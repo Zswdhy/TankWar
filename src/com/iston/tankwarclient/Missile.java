@@ -106,4 +106,13 @@ public class Missile {
         return true;
     }
 
+    public boolean hitWall(Wall w) {
+        // 子弹和墙的碰撞检测
+        if (this.live && this.getRectangle().intersects(w.getRect())) {
+            this.live = false;
+            return true;
+        }
+        return false;
+    }
+
 }
