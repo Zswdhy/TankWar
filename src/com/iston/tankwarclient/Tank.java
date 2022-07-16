@@ -2,6 +2,7 @@ package com.iston.tankwarclient;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.util.Random;
 
 public class Tank {
@@ -223,6 +224,20 @@ public class Tank {
         if (this.isLive && this.getRectangle().intersects(w.getRect())) {
             this.stay();
             return true;
+        }
+        return false;
+    }
+
+    public boolean collidesWithTanks(List<Tank> tanks) {
+        for (Tank t : tanks) {
+            if (this != t) {
+                // 敌方坦克碰撞检测
+                if (this.isLive && t.isLive() && this.getRectangle().intersects(t.getRectangle())) {
+                    this.stay();
+                    t.stay();
+                    return true;
+                }
+            }
         }
         return false;
     }
