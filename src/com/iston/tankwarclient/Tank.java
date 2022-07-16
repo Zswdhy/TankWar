@@ -172,6 +172,7 @@ public class Tank {
             case KeyEvent.VK_UP -> up = false;
             case KeyEvent.VK_RIGHT -> right = false;
             case KeyEvent.VK_DOWN -> down = false;
+            case KeyEvent.VK_A -> superFire();
         }
         locateDirection();
     }
@@ -202,6 +203,18 @@ public class Tank {
         return new Rectangle(x, y, TANK_WIDTH, TANK_HIGH);
     }
 
+    public Missile fire(Direction dir) {
+        if (!isLive()) {
+            return null;
+        }
+        int x = this.x + Tank.TANK_WIDTH / 2 - Missile.MISSILE_WIDTH / 2;
+        int y = this.y + Tank.TANK_HIGH / 2 - Missile.MISSILE_HIGH / 2;
+        Missile m = new Missile(x, y, good, dir, this.tc);// 根据炮筒的方向fire
+        tc.missiles.add(m); // 将每次初始化的炮弹加入ArrayList<>
+        return m;
+    }
+
+
     public void fire() {
 
         if (!isLive()) {
@@ -211,6 +224,15 @@ public class Tank {
         int y = this.y + Tank.TANK_HIGH / 2 - Missile.MISSILE_HIGH / 2;
         Missile m = new Missile(x, y, good, gunDir, this.tc);// 根据炮筒的方向fire
         tc.missiles.add(m); // 将每次初始化的炮弹加入ArrayList<>
+    }
+
+    // 超级炮弹
+    public void superFire() {
+        Direction[] dirs = Direction.values();
+
+        for (int i = 0; i < 8; i++) {
+            fire(dirs[i]);
+        }
     }
 
     private void stay() {
