@@ -12,6 +12,16 @@ public class Tank {
     private int x, y;//位置坐标
     private int old_x, old_y;//位置坐标
 
+
+    public int getBLOOD() {
+        return BLOOD;
+    }
+
+    public void setBLOOD(int BLOOD) {
+        this.BLOOD = BLOOD;
+    }
+
+    private int BLOOD = 100; // 生命值
     private boolean good;
 
     public boolean isGood() {

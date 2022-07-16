@@ -86,7 +86,15 @@ public class Missile {
     public boolean hitTank(Tank t) {
         // 碰撞检测
         if (this.live && this.getRectangle().intersects(t.getRectangle()) && t.isLive() && this.good != t.isGood()) {
-            t.setLive(false);
+            if (t.isGood()) {
+                t.setBLOOD(t.getBLOOD() - 20);
+                if (t.getBLOOD() <= 0) {
+                    t.setLive(false);
+                }
+            } else {
+                t.setLive(false);
+            }
+            
             this.live = false;
             Explode explode = new Explode(x, y, tc);
             tc.explodes.add(explode);
