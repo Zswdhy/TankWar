@@ -286,4 +286,13 @@ public class Tank {
             g.setColor(c);
         }
     }
+
+    public boolean eatBlood(Blood b) {
+        if (this.isLive() && b.isLive() && this.getRectangle().intersects(b.getRect())) {
+            this.BLOOD = 100;
+            b.setLive(false);
+            return true;
+        }
+        return true;
+    }
 }

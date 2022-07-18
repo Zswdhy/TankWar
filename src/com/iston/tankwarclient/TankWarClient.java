@@ -20,6 +20,7 @@ public class TankWarClient extends Frame {
 
     Wall w1 = new Wall(250, 200, 20, 150, this);
     Wall w2 = new Wall(400, 100, 300, 20, this);
+    Blood b = new Blood();
 
     // 窗口重画的时候，自动调用paint()方法
     public void paint(Graphics g) {
@@ -28,8 +29,10 @@ public class TankWarClient extends Frame {
         g.drawString("BadTanksCount:" + "【" + tanks.size() + "】", 10, 90);
         g.drawString("TankBlood:" + "【" + myTank.getBLOOD() + "】", 10, 110);
         myTank.draw(g); // 自己坦克
+        myTank.eatBlood(b);
         w1.draw(g);
         w2.draw(g);
+        b.draw(g);
 
         for (Missile missile : missiles) {
             missile.hitTanks(tanks);
