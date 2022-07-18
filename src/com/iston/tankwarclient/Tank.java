@@ -22,6 +22,7 @@ public class Tank {
     }
 
     private int BLOOD = 100; // 生命值
+    private BloodBar bloodBar = new BloodBar();
     private boolean good;
 
     public boolean isGood() {
@@ -142,6 +143,7 @@ public class Tank {
         Color c = g.getColor();
         if (good) {
             g.setColor(Color.RED); //设置 my tank 画笔颜色
+            bloodBar.draw(g);
         } else {
             g.setColor(Color.BLUE); //设置 badTank 画笔颜色
         }
@@ -272,5 +274,16 @@ public class Tank {
             }
         }
         return false;
+    }
+
+    private class BloodBar {
+        public void draw(Graphics g) {
+            Color c = g.getColor();
+            g.setColor(Color.RED);
+            g.drawRect(x, y - 10, TANK_WIDTH, 10);
+            int w = TANK_WIDTH * BLOOD / 100;
+            g.fillRect(x, y - 10, w, 10);
+            g.setColor(c);
+        }
     }
 }
