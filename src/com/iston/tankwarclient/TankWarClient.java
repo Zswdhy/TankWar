@@ -28,6 +28,15 @@ public class TankWarClient extends Frame {
         g.drawString("ExplodeCount:" + "【" + explodes.size() + "】", 10, 70);
         g.drawString("BadTanksCount:" + "【" + tanks.size() + "】", 10, 90);
         g.drawString("TankBlood:" + "【" + myTank.getBLOOD() + "】", 10, 110);
+
+        if (tanks.size() <= 0) {
+            // 重画地方坦克
+            for (int i = 0; i < 5; i++) {
+                tanks.add(new Tank(50 + 40 * (i + 1), 50, false, Tank.Direction.D, this));
+            }
+
+        }
+
         myTank.draw(g); // 自己坦克
         myTank.eatBlood(b);
         w1.draw(g);

@@ -165,6 +165,13 @@ public class Tank {
         move();
     }
 
+    private void restart() {
+        if (!this.isLive) {
+            this.isLive = true;
+            this.BLOOD = 100;
+        }
+    }
+
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
@@ -172,6 +179,8 @@ public class Tank {
             case KeyEvent.VK_UP -> up = true;
             case KeyEvent.VK_RIGHT -> right = true;
             case KeyEvent.VK_DOWN -> down = true;
+            case KeyEvent.VK_F2 -> restart();
+
         }
         locateDirection();
     }
