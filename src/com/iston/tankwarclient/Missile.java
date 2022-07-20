@@ -50,25 +50,41 @@ public class Missile {
 
     public void move() {
         switch (dir) {
-            case L -> x -= MISSILE_X_SPEED;
-            case LU -> {
+            case L: {
+                x -= MISSILE_X_SPEED;
+                break;
+            }
+            case LU: {
                 x -= MISSILE_X_SPEED;
                 y -= MISSILE_Y_SPEED;
+                break;
             }
-            case U -> y -= MISSILE_Y_SPEED;
-            case RU -> {
+            case U: {
+                y -= MISSILE_Y_SPEED;
+                break;
+            }
+            case RU: {
                 x += MISSILE_X_SPEED;
                 y -= MISSILE_Y_SPEED;
+                break;
             }
-            case R -> x += MISSILE_X_SPEED;
-            case RD -> {
+            case R: {
+                x += MISSILE_X_SPEED;
+                break;
+            }
+            case RD: {
                 x += MISSILE_X_SPEED;
                 y += MISSILE_Y_SPEED;
+                break;
             }
-            case D -> y += MISSILE_Y_SPEED;
-            case LD -> {
+            case D: {
+                y += MISSILE_Y_SPEED;
+                break;
+            }
+            case LD: {
                 x -= MISSILE_X_SPEED;
                 y += MISSILE_Y_SPEED;
+                break;
             }
         }
 
@@ -94,7 +110,7 @@ public class Missile {
             } else {
                 t.setLive(false);
             }
-            
+
             this.live = false;
             Explode explode = new Explode(x, y, tc);
             tc.explodes.add(explode);

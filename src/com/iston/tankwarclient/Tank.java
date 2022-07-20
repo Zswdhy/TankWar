@@ -78,25 +78,41 @@ public class Tank {
         this.old_y = y;
 
         switch (dir) {
-            case L -> x -= TANK_X_SPEED;
-            case LU -> {
+            case L: {
+                x -= TANK_X_SPEED;
+                break;
+            }
+            case LU: {
                 x -= TANK_X_SPEED;
                 y -= TANK_Y_SPEED;
+                break;
             }
-            case U -> y -= TANK_Y_SPEED;
-            case RU -> {
+            case U: {
+                y -= TANK_Y_SPEED;
+                break;
+            }
+            case RU: {
                 x += TANK_X_SPEED;
                 y -= TANK_Y_SPEED;
+                break;
             }
-            case R -> x += TANK_X_SPEED;
-            case RD -> {
+            case R: {
+                x += TANK_X_SPEED;
+                break;
+            }
+            case RD: {
                 x += TANK_X_SPEED;
                 y += TANK_Y_SPEED;
+                break;
             }
-            case D -> y += TANK_Y_SPEED;
-            case LD -> {
+            case D: {
+                y += TANK_Y_SPEED;
+                break;
+            }
+            case LD: {
                 x -= TANK_X_SPEED;
                 y += TANK_Y_SPEED;
+                break;
             }
         }
         // 坦克方向和炮筒方向同时更新
@@ -152,14 +168,38 @@ public class Tank {
         g.setColor(c); // 恢复画笔颜色
         // 根据坦克的方向画炮筒
         switch (gunDir) {
-            case L -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x, y + TANK_HIGH / 2);
-            case LU -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x, y);
-            case U -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH / 2, y);
-            case RU -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH, y);
-            case R -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH, y + TANK_HIGH / 2);
-            case RD -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH, y + TANK_HIGH);
-            case D -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH / 2, y + TANK_HIGH);
-            case LD -> g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x, y + TANK_HIGH);
+            case L: {
+                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x, y + TANK_HIGH / 2);
+                break;
+            }
+            case LU: {
+                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x, y);
+                break;
+            }
+            case U: {
+                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH / 2, y);
+                break;
+            }
+            case RU: {
+                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH, y);
+                break;
+            }
+            case R: {
+                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH, y + TANK_HIGH / 2);
+                break;
+            }
+            case RD: {
+                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH, y + TANK_HIGH);
+                break;
+            }
+            case D: {
+                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x + TANK_WIDTH / 2, y + TANK_HIGH);
+                break;
+            }
+            case LD: {
+                g.drawLine(x + TANK_WIDTH / 2, y + TANK_HIGH / 2, x, y + TANK_HIGH);
+                break;
+            }
         }
 
         move();
@@ -175,11 +215,26 @@ public class Tank {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
-            case KeyEvent.VK_LEFT -> left = true;
-            case KeyEvent.VK_UP -> up = true;
-            case KeyEvent.VK_RIGHT -> right = true;
-            case KeyEvent.VK_DOWN -> down = true;
-            case KeyEvent.VK_F2 -> restart();
+            case KeyEvent.VK_LEFT: {
+                left = true;
+                break;
+            }
+            case KeyEvent.VK_UP: {
+                up = true;
+                break;
+            }
+            case KeyEvent.VK_RIGHT: {
+                right = true;
+                break;
+            }
+            case KeyEvent.VK_DOWN: {
+                down = true;
+                break;
+            }
+            case KeyEvent.VK_F2: {
+                restart();
+                break;
+            }
 
         }
         locateDirection();
@@ -188,12 +243,30 @@ public class Tank {
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
-            case KeyEvent.VK_CONTROL -> fire(); // 键盘弹起ctrl键发送炮弹
-            case KeyEvent.VK_LEFT -> left = false;
-            case KeyEvent.VK_UP -> up = false;
-            case KeyEvent.VK_RIGHT -> right = false;
-            case KeyEvent.VK_DOWN -> down = false;
-            case KeyEvent.VK_A -> superFire();
+            case KeyEvent.VK_CONTROL: {
+                fire();
+                break;
+            } // 键盘弹起ctrl键发送炮弹
+            case KeyEvent.VK_LEFT: {
+                left = false;
+                break;
+            }
+            case KeyEvent.VK_UP: {
+                up = false;
+                break;
+            }
+            case KeyEvent.VK_RIGHT: {
+                right = false;
+                break;
+            }
+            case KeyEvent.VK_DOWN: {
+                down = false;
+                break;
+            }
+            case KeyEvent.VK_A: {
+                superFire();
+                break;
+            }
         }
         locateDirection();
     }
